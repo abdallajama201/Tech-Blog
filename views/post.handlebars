@@ -1,9 +1,12 @@
-{{#each posts as |post| }}
 <div class="card m-3">
-    <a href="/post/{{post.id}}" style="text-decoration:none; color:inherit;"><div class="card-header">{{post.title}}</div></a>
+    <div class="card-header">{{post.title}}</div>
     <div class="card-body">
         <h5 class="card-title">Posted by: {{post.user.name}} on {{post.date}}</h5>
         <p class="card-text">{{post.content}}</p>
+        <p class="card-text">{{post.comments}}</p>
     </div>
 </div>
+{{#each comm as |com| }}
+    <p>{{com.content}}</p>
+    <p>{{com.user.name}}</p>
 {{/each}}
