@@ -3,10 +3,21 @@
     <div class="card-body">
         <h5 class="card-title">Posted by: {{post.user.name}} on {{post.date}}</h5>
         <p class="card-text">{{post.content}}</p>
-        <p class="card-text">{{post.comments}}</p>
     </div>
 </div>
+<h4>Comments:</h4>
 {{#each comm as |com| }}
-    <p>{{com.content}}</p>
-    <p>{{com.user.name}}</p>
+<div class="card m-3">
+    <div class="card-body">
+        <p class="card-text">{{com.content}}</p>
+        <h5 class="card-title">Posted by: {{com.user.name}} on {{com.date}}</h5>
+    </div>
+</div>
 {{/each}}
+<form class="m-3">
+  <div class="form-group">
+    <textarea class="form-control" placeholder="Leave a comment" id="comment-area" rows="3"></textarea>
+    <button type="submit" class="btn btn-primary m-auto" id="btn">Submit</button>
+  </div>
+</form>
+<script src="/js/comment.js"></script>

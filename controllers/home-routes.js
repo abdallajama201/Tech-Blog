@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const {Post, User, Comment} = require("../model");
+const withAuth = require('../utils/auth');
 
 router.get("/", async (req, res) => {
     try {
@@ -7,13 +8,16 @@ router.get("/", async (req, res) => {
             include: [{model: User, attributes: ["name"]}]
         });
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render("homepage", { posts });
+        res.render("homepage", { 
+            posts,
+            loggedIn: req.session.logged_in,
+         });
     }catch(err) {
         res.status(500).json(err);
     }
 });
 
-router.get("/post/:id", async (req, res) => {
+router.get("/post/:id", withAuth,async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             include: [{model: Comment}, {model: User}]
@@ -27,28 +31,47 @@ router.get("/post/:id", async (req, res) => {
             commData.push(comment);
         }
         const comm = commData.map((com) => com.get({ plain: true}));
-        console.log(comm);
-        res.render("post", { post, comm })
+        res.render("post", { 
+            post,
+            comm,
+            loggedIn: req.session.logged_in,
+         })
     }catch(err) {
         res.status(500).json(err);
     }
 });
 
 router.get('/login', (req, res) => {
-    // if (req.session.loggedIn) {
-    //     res.redirect('/dashboard');
-    //     return;
-    // }
+    if (req.session.loggedIn) {
+        res.redirect('/dashboard');
+        return;
+    }
     res.render('login');
 });
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
             include: [{model: Post}]
         });
         const user = userData.get({ plain: true });
-        res.render("dashboard", { user });
+        res.render("dashboard", { 
+            user,
+            loggedIn: req.session.logged_in,
+        });
+    }catch(err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get("/update/:id", withAuth ,async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id);
+        const post = postData.get({ plain: true });
+        res.render("update", { 
+            post,
+            loggedIn: req.session.logged_in,
+         })
     }catch(err) {
         res.status(500).json(err);
     }
