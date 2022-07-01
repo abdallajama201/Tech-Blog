@@ -1,9 +1,22 @@
 {{#each user.posts as |post| }}
 <div class="card m-3">
-    <a href="#" style="text-decoration:none; color:inherit;"><div class="card-header">{{post.title}}</div></a>
+    <h5><a href="/update/{{post.id}}" style="text-decoration:none; color:inherit;"><div class="card-header">{{post.title}}</div></a></h5>
     <div class="card-body">
-        <h5 class="card-title">Posted by: {{user.name}} on {{post.date}}</h5>
+        <p class="card-title">Posted on: {{post.date}}</p>
         <p class="card-text">{{post.content}}</p>
     </div>
 </div>
 {{/each}}
+<div class="row justify-content-center">
+  <h4>Make a new Post</h4>
+</div>
+<form class="m-3">
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" placeholder="Post Title">
+    <textarea class="form-control" placeholder="Post Content" id="post-area" rows="3"></textarea>
+    <div class="row justify-content-center">
+      <button type="submit" class="btn btn-primary m-auto" id="btn">Create Post</button>
+    </div>
+  </div>
+</form>
+<script src="/js/dashboard.js"></script>
