@@ -1,3 +1,5 @@
+// Takes the values from the title and content dields
+// sends the data to post api endpint
 const post = async (event) => {
     event.preventDefault();
     const postContent = document.querySelector('#post-area').value.trim();

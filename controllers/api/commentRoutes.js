@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Comment } = require("../../model");
 const withAuth = require('../../utils/auth');
 
+// Enpoint for leaving comment button
 router.post('/',withAuth ,async (req, res) => {
     console.log(req.body.commentData)
     try {

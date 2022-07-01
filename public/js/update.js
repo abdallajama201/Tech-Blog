@@ -1,8 +1,10 @@
+// Accesses api post endpoint
 const update = async (event) => {
     event.preventDefault();
     const postContent = document.querySelector('#post-area').value.trim();
     const postTitle = document.querySelector('#title').value.trim();
-    const postId = window.location.href[window.location.href.length - 1];
+    const urlArr = window.location.href.split("/");
+    const postId = urlArr[urlArr.length - 1];
 
     const response = await fetch(`/api/posts`, {
         method: 'PUT',
@@ -18,9 +20,11 @@ const update = async (event) => {
     }
 };
 
+// Accesses api post endpoint
 const deletePost = async (event) => {
     event.preventDefault();
-    const postId = window.location.href[window.location.href.length - 1];
+    const urlArr = window.location.href.split("/");
+    const postId = urlArr[urlArr.length - 1];
 
     const response = await fetch(`/api/posts`, {
         method: 'DELETE',

@@ -1,5 +1,5 @@
+// Simply accesses the user api endpoint with no data
 const logout = async () => {
-    console.log("mmm")
     const response = await fetch('/api/users/logout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

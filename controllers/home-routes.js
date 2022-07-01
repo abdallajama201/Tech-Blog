@@ -2,6 +2,8 @@ const router = require("express").Router();
 const {Post, User, Comment} = require("../model");
 const withAuth = require('../utils/auth');
 
+// All routes for pages 
+// Route for homepage
 router.get("/", async (req, res) => {
     try {
         const postData = await Post.findAll({
@@ -17,12 +19,14 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/post/:id", withAuth,async (req, res) => {
+// Route for individual posts
+router.get("/post/:id", withAuth ,async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             include: [{model: Comment}, {model: User}]
         });
         const post = postData.get({ plain: true });
+        // Retrieving all comment data
         let commData = []
         for(let i = 0; i < post.comments.length; i++) {
             const comment = await Comment.findByPk(post.comments[i].id, {
@@ -41,6 +45,7 @@ router.get("/post/:id", withAuth,async (req, res) => {
     }
 });
 
+// Route for login page
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/dashboard');
@@ -49,6 +54,7 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// Route for dahsboard
 router.get("/dashboard", withAuth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
@@ -64,6 +70,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
     }
 });
 
+// Route for page that updates posts
 router.get("/update/:id", withAuth ,async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id);

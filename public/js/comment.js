@@ -1,7 +1,11 @@
+// Takes post id from the query paramater
+// as well as the comment field and
+// sends it to the comments api endpoint
 const comment = async (event) => {
     event.preventDefault();
     const commentData = document.querySelector('#comment-area').value.trim();
-    const postId = window.location.href[window.location.href.length - 1];
+    const urlArr = window.location.href.split("/");
+    const postId = urlArr[urlArr.length - 1];
 
     const response = await fetch(`/api/comments`, {
         method: 'POST',
