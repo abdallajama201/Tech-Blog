@@ -15,7 +15,7 @@ This website can be useful to anyone who would like to have a place to post arti
 
 ## Usage
 
-The website is live on the open web and can be accessed at 
+The website is live on the open web and can be accessed at https://tech-blog-abdalla.herokuapp.com/ 
 
 When a user opens the webpage they can see all of the posts that have been created. Clicking on any link other than home will direct the user to login or sign-up. Once the user is logged in they are sent to a dashboard, where they can view their own posts and create new ones. From the dashboard a user can click their post to modify or delete it. From the home page a user can now click on any post and see its contents and comments. The user is also able to add comments.
 
